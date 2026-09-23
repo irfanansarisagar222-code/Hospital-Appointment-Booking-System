@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Login - Hospital System</title>
+    <link rel="stylesheet" type="text/css" th:href="@{/css/style.css}">
+</head>
+<body>
+
+<header>
+    <div class="navbar">
+        <div class="logo-section">
+            <span class="logo-icon">+</span>
+            <h1>Hospital Appointment System</h1>
+        </div>
+        <nav class="nav-links">
+            <a href="/">Home</a>
+            <a href="/auth/login">Login</a>
+            <a href="/auth/signup">Signup</a>
+        </nav>
+    </div>
+</header>
+
+<main>
+    <div class="card" style="max-width: 400px; margin: 40px auto;">
+        <h2>Login</h2>
+        <br>
+        <form action="/auth/login" method="POST">
+            <div>
+                <label>Email:</label>
+                <input type="email" name="username" required placeholder="Enter your email">
+            </div>
+            <br>
+            <div>
+                <label>Password:</label>
+                <input type="password" name="password" required placeholder="Enter your password">
+            </div>
+            <br>
+            <button type="submit" class="btn-primary" style="width: 100%;">Login</button>
+        </form>
+        <br>
+        <p>New user? <a href="/auth/signup">Register here</a></p>
+    </div>
+</main>
+
+<footer>
+    <p>&copy; 2026 Hospital Appointment System</p>
+</footer>
+
+</body>
+</html>

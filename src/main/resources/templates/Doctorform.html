@@ -1,0 +1,177 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Add New Doctor</title>
+    <!-- Bootstrap CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" type="text/css" th:href="@{/css/style.css}">
+
+    <style>
+        .form-wrapper {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            padding: 30px 15px;
+        }
+
+        .common-form {
+            width: 100%;
+            max-width: 600px;
+            background: #ffffff;
+            padding: 30px;
+            border-radius: 16px;
+            box-shadow: 0 5px 20px rgba(0, 0, 0, 0.08);
+            border: 1px solid #e0e0e0;
+        }
+
+        .common-form h2 {
+            color: #0077b6;
+            font-weight: 700;
+            margin-bottom: 20px;
+            text-align: center;
+        }
+
+        .form-group {
+            margin-bottom: 15px;
+            text-align: left;
+        }
+
+        .form-group label {
+            display: block;
+            font-weight: 600;
+            margin-bottom: 6px;
+            color: #333;
+            font-size: 0.9rem;
+        }
+
+        .form-group input,
+        .form-group select {
+            width: 100%;
+            padding: 10px 14px;
+            border: 1px solid #ced4da;
+            border-radius: 8px;
+            font-size: 0.95rem;
+            outline: none;
+            box-sizing: border-box;
+            background-color: #f8f9fa;
+        }
+
+        .form-group input:focus,
+        .form-group select:focus {
+            border-color: #0077b6;
+            background-color: #fff;
+            box-shadow: 0 0 0 3px rgba(0, 119, 182, 0.15);
+        }
+
+        .btn-submit {
+            width: 100%;
+            background-color: #0077b6;
+            color: white;
+            padding: 12px;
+            border: none;
+            border-radius: 8px;
+            font-size: 1rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+            margin-top: 10px;
+        }
+
+        .btn-submit:hover {
+            background-color: #0056b3;
+        }
+
+        /* Header Back Button Styling (Doctor List Se Exactly Matched) */
+        .nav-back-btn {
+            background: transparent !important;
+            color: white !important;
+            border: 1.5px solid white !important;
+            padding: 6px 14px !important;
+            border-radius: 6px !important;
+            text-decoration: none !important;
+            font-size: 0.85rem !important;
+            font-weight: 600 !important;
+            transition: all 0.3s ease !important;
+        }
+
+        .nav-back-btn:hover {
+            background: white !important;
+            color: #0077b6 !important;
+        }
+    </style>
+</head>
+<body>
+
+<header>
+    <div class="navbar" style="display: flex; justify-content: space-between; align-items: center; padding: 12px 30px;">
+        <h1 style="color: white; font-size: 1.4rem; margin: 0;">Hospital Appointment System</h1>
+        <nav class="nav-links">
+            <a href="/admin/dashboard" class="nav-back-btn">&larr; Back to Dashboard</a>
+        </nav>
+    </div>
+</header>
+
+<main class="form-wrapper">
+    <div class="common-form">
+        <h2>Add New Doctor</h2>
+
+        <form action="/admin/doctors/save" method="POST">
+            <div class="form-group">
+                <label>Doctor Name:</label>
+                <input type="text" name="name" placeholder="Dr. Full Name" required>
+            </div>
+
+            <div class="form-group">
+                <label>Specialization:</label>
+                <select name="specialization" required>
+                    <option value="" disabled selected>-- Specialization Choose Karein --</option>
+                    <option value="Cardiologist">Cardiologist</option>
+                    <option value="Dentist">Dentist</option>
+                    <option value="General Physician">General Physician</option>
+                    <option value="Neurologist">Neurologist</option>
+                </select>
+            </div>
+
+            <div class="form-group">
+                <label>Contact Number:</label>
+                <input type="tel" name="phone" placeholder="Enter contact number" required>
+            </div>
+
+            <div class="form-group">
+                <label>Experience (Years):</label>
+                <input type="number" name="experience" placeholder="e.g., 5" required>
+            </div>
+
+            <div class="form-group">
+                <label>Email Address:</label>
+                <input type="email" name="email" placeholder="doctor@hospital.com" required>
+            </div>
+
+            <div class="form-group">
+                <label>Chamber Number:</label>
+                <input type="number" name="chamberNumber" placeholder="e.g., 102" required>
+            </div>
+
+            <div class="form-group">
+                <label>Consultation Fees (₹):</label>
+                <input type="number" name="consultationFee" placeholder="e.g., 500" required>
+            </div>
+
+            <div class="form-group">
+                <label>Working Hours:</label>
+                <input type="text" name="workingHours" placeholder="e.g., 10:00 AM - 02:00 PM" required>
+            </div>
+
+            <button type="submit" class="btn-submit">Submit Details</button>
+        </form>
+    </div>
+</main>
+
+<footer>
+    <p>&copy; 2026 Hospital Appointment System. All Rights Reserved.</p>
+</footer>
+
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+</html>

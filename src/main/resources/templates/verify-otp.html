@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>OTP Verification</title>
+    <link rel="stylesheet" type="text/css" th:href="@{/css/style.css}">
+</head>
+<body>
+
+<header>
+    <h1>Hospital Management System</h1>
+</header>
+
+<main>
+    <div class="card" style="max-width: 400px; margin: 40px auto;">
+        <h2>Verify OTP</h2>
+        <p style="color: #666; font-size: 0.9rem; margin-bottom: 15px;">
+            Please enter the OTP sent to your email and set your account password to complete registration.
+        </p>
+
+        <form action="/auth/verify" method="POST">
+            <!-- Hidden input remains untouched to carry over the user's email -->
+            <input type="hidden" name="email" th:value="${email}">
+
+            <div>
+                <label>One-Time Password (OTP):</label>
+                <input type="text" name="otp" placeholder="Enter OTP" required>
+            </div>
+            <br>
+            <div>
+                <label>Set Password:</label>
+                <input type="password" name="password" placeholder="Set Password" required>
+            </div>
+            <br>
+            <button type="submit" class="btn-primary" style="width: 100%;">Verify & Register</button>
+        </form>
+    </div>
+</main>
+
+<footer class="simple-footer">
+    <p>&copy; 2026 Hospital Appointment System</p>
+</footer>
+
+</body>
+</html>

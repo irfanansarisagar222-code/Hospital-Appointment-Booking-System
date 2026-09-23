@@ -1,0 +1,171 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Doctor List</title>
+    <!-- Bootstrap CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" type="text/css" th:href="@{/css/style.css}">
+
+    <style>
+        .page-wrapper {
+            max-width: 1100px;
+            margin: 30px auto;
+            padding: 0 20px;
+        }
+
+        .table-card {
+            background: #ffffff;
+            padding: 30px;
+            border-radius: 16px;
+            box-shadow: 0 5px 20px rgba(0, 0, 0, 0.08);
+            border: 1px solid #e0e0e0;
+        }
+
+        .table-card-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 25px;
+            flex-wrap: wrap;
+            gap: 15px;
+        }
+
+        .table-card-header h2 {
+            color: #0077b6;
+            font-weight: 800;
+            margin: 0;
+            font-size: 1.8rem;
+        }
+
+        .btn-add {
+            background-color: #0077b6;
+            color: white;
+            padding: 9px 18px;
+            border-radius: 8px;
+            text-decoration: none;
+            font-weight: 600;
+            font-size: 0.9rem;
+            transition: background-color 0.3s ease;
+            display: inline-block;
+        }
+
+        .btn-add:hover {
+            background-color: #0056b3;
+            color: white;
+        }
+
+        .custom-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 10px;
+            font-size: 0.92rem;
+        }
+
+        .custom-table thead {
+            background-color: #0077b6;
+            color: white;
+        }
+
+        .custom-table th {
+            padding: 12px 14px;
+            text-align: left;
+            font-weight: 600;
+            border: 1px solid #0077b6;
+            white-space: nowrap;
+        }
+
+        .custom-table td {
+            padding: 12px 14px;
+            border: 1px solid #e2e8f0;
+            color: #444;
+            vertical-align: middle;
+        }
+
+        .custom-table tbody tr:nth-child(even) {
+            background-color: #f8fafc;
+        }
+
+        .custom-table tbody tr:hover {
+            background-color: #eef6ff;
+        }
+
+        /* Header Back Button Styling */
+        .nav-back-btn {
+            background: transparent !important;
+            color: white !important;
+            border: 1.5px solid white !important;
+            padding: 6px 14px !important;
+            border-radius: 6px !important;
+            text-decoration: none !important;
+            font-size: 0.85rem !important;
+            font-weight: 600 !important;
+            transition: all 0.3s ease !important;
+        }
+
+        .nav-back-btn:hover {
+            background: white !important;
+            color: #0077b6 !important;
+        }
+    </style>
+</head>
+<body>
+
+<header>
+    <div class="navbar" style="display: flex; justify-content: space-between; align-items: center; padding: 12px 30px;">
+        <h1 style="color: white; font-size: 1.4rem; margin: 0;">Hospital Appointment System</h1>
+        <nav class="nav-links">
+            <!-- Back to Dashboard button added inside navbar header -->
+            <a href="/admin/dashboard" class="nav-back-btn">&larr; Back to Dashboard</a>
+        </nav>
+    </div>
+</header>
+
+<main class="page-wrapper">
+    <div class="table-card">
+        <div class="table-card-header">
+            <h2>Doctor List</h2>
+            <a href="/admin/add-doctor" class="btn-add">+ Add New Doctor</a>
+        </div>
+
+        <div class="table-responsive">
+            <table class="custom-table">
+                <thead>
+                <tr>
+                    <th>Name</th>
+                    <th>Specialization</th>
+                    <th>Phone</th>
+                    <th>Exp (Yrs)</th>
+                    <th>Email</th>
+                    <th>Chamber</th>
+                    <th>Fees</th>
+                    <th>Working Hours</th>
+                </tr>
+                </thead>
+                <tbody>
+                <tr th:each="doc : ${doctors}" th:if="${doctors != null && !#lists.isEmpty(doctors)}">
+                    <td th:text="${doc.name}" style="font-weight: 600; color: #0077b6;"></td>
+                    <td th:text="${doc.specialization}"></td>
+                    <td th:text="${doc.phone}"></td>
+                    <td th:text="${doc.experience}"></td>
+                    <td th:text="${doc.email}"></td>
+                    <td th:text="${doc.chamberNumber}"></td>
+                    <td>₹<span th:text="${doc.consultationFee}"></span></td>
+                    <td th:text="${doc.workingHours}"></td>
+                </tr>
+                <tr th:if="${doctors == null || #lists.isEmpty(doctors)}">
+                    <td colspan="8" style="text-align: center; color: #888; padding: 20px;">No doctors found. Click "+ Add New Doctor" to add one.</td>
+                </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+</main>
+
+<footer>
+    <p>&copy; 2026 Hospital Appointment System. All Rights Reserved.</p>
+</footer>
+
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+</html>

@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>My Bookings</title>
+    <link rel="stylesheet" type="text/css" th:href="@{/css/style.css}">
+</head>
+<body>
+
+<header>
+    <div class="navbar">
+        <div class="welcome-section">
+            <h1 style="margin: 0; font-size: 1.4rem; color: white;">Hospital Appointment System </h1>
+        </div>
+        <nav class="nav-links">
+            <a href="/user/book-appointment">Book Appointment</a>
+            <a href="/user/update-patient">My Profile</a>
+            <a href="/user/add-patient">Add New Patient</a>
+        </nav>
+    </div>
+</header>
+
+<main class="form-wrapper">
+    <div class="header-anchor-right" style="max-width: 800px;">
+        <a href="/user/dashboard" class="dashboard-btn">&larr; Back to Dashboard</a>
+    </div>
+
+    <div class="common-form" style="max-width: 800px;">
+        <h2>Your Appointments</h2>
+
+        <table class="appointment-table">
+            <thead>
+            <tr>
+                <th>Doctor</th>
+                <th>Date</th>
+                <th>Status</th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr th:if="${#lists.isEmpty(myAppointments)}">
+                <td colspan="3" style="text-align: center; padding: 20px;">
+                    No appointments found.
+                </td>
+            </tr>
+
+            <tr th:each="appt : ${myAppointments}">
+                <td th:text="${appt.doctor.name}">Dr. Name</td>
+                <td th:text="${appt.appointmentDate}">Date</td>
+                <td>
+            <span class="status-badge"
+                  th:text="${appt.status}"
+                  th:classappend="${appt.status == 'Confirmed'} ? 'status-confirmed' : 'status pending'">
+            </span>
+                </td>
+            </tr>
+            </tbody>
+        </table>
+    </div>
+</main>
+
+<footer>
+    <div class="footer-content">
+        <div class="footer-section">
+            <h4>Hospital System</h4>
+            <p>Providing the best healthcare <br> appointment solutions for you.</p>
+        </div>
+        <div class="footer-section">
+            <h4>Quick Links</h4>
+            <a href="/">Home</a>
+            <a href="/user/my-appointments">My Bookings</a>
+            <a href="/user/update-patient">My Profile</a>
+        </div>
+        <div class="footer-section">
+            <h4>Contact Us</h4>
+            <p>📍 Sagar, Madhya Pradesh</p>
+            <p>📧 support@hospital.com</p>
+        </div>
+    </div>
+    <hr style="margin: 20px 0; border: 0; border-top: 1px solid #ddd;">
+    <p style="text-align: center;">&copy; 2026 Hospital Appointment System. All Rights Reserved.</p>
+</footer>
+
+</body>
+</html>

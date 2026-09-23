@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Patient Profile Update</title>
+    <link rel="stylesheet" type="text/css" th:href="@{/css/style.css}">
+</head>
+<body>
+
+<header>
+    <h1>My Profile</h1>
+</header>
+
+<main>
+    <div class="card" style="max-width: 500px; margin: 20px auto;">
+
+        <!-- Selection Form -->
+        <form th:action="@{/admin/update-patient}" method="get">
+            <label>Select Patient ID:</label>
+            <select name="id" onchange="this.form.submit()">
+                <option value="">-- Choose ID --</option>
+                <option th:each="p : ${allPatients}"
+                        th:value="${p.id}"
+                        th:text="${p.id} + ' - ' + ${p.name}"
+                        th:selected="${patient != null and patient.id == p.id}"></option>
+            </select>
+        </form>
+
+        <hr style="margin: 20px 0;">
+
+        <!-- Edit Form -->
+        <div th:if="${patient != null}">
+            <h3>Editing ID: <b th:text="${patient.id}"></b></h3>
+            <form th:action="@{/admin/update-patient/{id}(id=${patient.id})}" th:object="${patient}" method="post">
+
+                <label>Name:</label>
+                <input type="text" th:field="*{name}" required>
+
+                <label>Phone:</label>
+                <input type="text" th:field="*{phoneNumber}" required>
+
+                <label>Age:</label>
+                <input type="number" th:field="*{age}" required>
+
+                <label>Gender:</label>
+                <select th:field="*{gender}">
+                    <option value="Male">Male</option>
+                    <option value="Female">Female</option>
+                    <option value="Other">Other</option>
+                </select>
+
+                <br><br>
+                <button type="submit" class="btn-primary" style="width: 100%;">Save Changes</button>
+            </form>
+        </div>
+
+        <br>
+        <a href="/user/dashboard" style="display: block; text-align: center;">Back to Dashboard</a>
+    </div>
+</main>
+
+<footer>
+    <div class="footer-content">
+        <div class="footer-section">
+            <h4>Hospital Appointment System</h4>
+            <p>Providing the best healthcare <br> appointment solutions for you.</p>
+        </div>
+        <div class="footer-section">
+            <h4>Quick Links</h4>
+            <a href="/">Home</a>
+            <a href="/user/my-appointments">My Bookings</a>
+            <a href="/user/update-patient">My Profile</a>
+        </div>
+        <div class="footer-section">
+            <h4>Contact Us</h4>
+            <p>📍 Sagar, Madhya Pradesh</p>
+            <p>📧 support@hospital.com</p>
+        </div>
+    </div>
+    <hr style="margin: 20px 0; border: 0; border-top: 1px solid #ddd;">
+    <p style="text-align: center;">&copy; 2026 Hospital Appointment System. All Rights Reserved.</p>
+</footer>
+
+</body>
+</html>

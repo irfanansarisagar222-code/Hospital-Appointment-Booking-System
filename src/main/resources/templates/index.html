@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Hospital Appointment System</title>
+    <link rel="stylesheet" type="text/css" th:href="@{/css/style.css}">
+</head>
+<body>
+
+<header>
+    <h1>Hospital Appointment System</h1>
+</header>
+
+<main>
+    <div class="card">
+        <h3>Main Menu</h3>
+
+        <div class="nav-card">
+            <p><strong>Doctors</strong></p>
+            <a href="/doctors/add" class="btn-primary">Add Doctor</a>
+            <a href="/doctors/list" class="btn-primary">View All</a>
+        </div>
+
+        <div class="nav-card">
+            <p><strong>Patients</strong></p>
+            <a href="/patients/add" class="btn-primary">Add Patient</a>
+            <a href="/patients/list" class="btn-primary">View All</a>
+        </div>
+
+        <div class="nav-card">
+            <p><strong>Appointments</strong></p>
+            <a href="/appointments/book" class="btn-primary">Book New</a>
+            <a href="/appointments/list-appointment" class="btn-primary">View All</a>
+        </div>
+
+        <hr style="margin: 20px 0;">
+
+        <form th:action="@{/logout}" method="post">
+            <button type="submit" class="btn-danger">Logout</button>
+        </form>
+    </div>
+</main>
+
+<footer>
+    <p>&copy; 2026 Hospital Appointment System</p>
+</footer>
+
+</body>
+</html>

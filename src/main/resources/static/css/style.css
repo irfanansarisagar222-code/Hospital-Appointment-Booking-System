@@ -1,0 +1,599 @@
+/* General Styling */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: 'Segoe UI', Roboto, sans-serif;
+}
+
+body {
+    background-color: #f0f4f8;
+    color: #333;
+    display: flex;
+    flex-direction: column;
+    min-height: 100vh;
+}
+
+/* Header - Sky Blue */
+header {
+    background-color: #87CEEB;
+    color: white;
+    padding: 20px;
+    text-align: center;
+    box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+}
+
+/* Main Layout */
+main {
+    padding: 40px 20px;
+    max-width: 1000px;
+    margin: 0 auto;
+    width: 100%;
+    flex: 1;
+}
+
+/* Cards */
+.card {
+    background: white;
+    padding: 30px;
+    border-radius: 12px;
+    box-shadow: 0 6px 12px rgba(0,0,0,0.05);
+}
+
+/* Buttons - Light Green */
+.btn-primary {
+    background-color: #90EE90;
+    color: #2d5a27;
+    padding: 12px 25px;
+    border: none;
+    border-radius: 6px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: background 0.3s;
+}
+
+.btn-primary:hover {
+    background-color: #77dd77;
+}
+
+/* Alerts - Light Red */
+.alert-error {
+    background-color: #FFC4C4;
+    color: #8b0000;
+    padding: 15px;
+    border-radius: 6px;
+    margin-bottom: 20px;
+    border: 1px solid #ff6961;
+}
+
+/* Form Inputs */
+input, select {
+    width: 100%;
+    padding: 12px;
+    margin: 10px 0;
+    border: 1px solid #ccc;
+    border-radius: 6px;
+}
+
+/* --- Footer Styling --- */
+
+/* सभी फुटर्स के लिए स्काई ब्लू बैकग्राउंड */
+footer {
+    background-color: #87CEEB;
+    color: white;
+    padding: 30px 20px;
+    margin-top: auto;
+    border-top: 4px solid #87CEEB;
+    text-align: center;
+}
+
+/* नए वाले फुटर का लेआउट */
+.footer-content {
+    display: flex;
+    justify-content: space-around;
+    flex-wrap: wrap;
+    max-width: 1000px;
+    margin: 0 auto;
+    text-align: left;
+}
+
+.footer-section {
+    margin: 10px;
+    min-width: 200px;
+}
+
+.footer-section h4 {
+    color: white;
+    margin-bottom: 12px;
+    font-weight: bold;
+    text-transform: uppercase;
+    font-size: 0.9em;
+}
+
+.footer-section a {
+    display: block;
+    color: white;
+    text-decoration: none;
+    margin-bottom: 8px;
+    opacity: 0.9;
+    transition: all 0.3s ease; /* स्मूथ ट्रांजिशन के लिए */
+}
+
+.footer-section a:hover {
+    color: #003366;
+    text-decoration: underline;
+    font-weight: bold;
+    cursor: pointer;
+    transform: translateX(5px);
+    transition: all 0.3s ease;
+}
+
+header {
+    background-color: #87CEEB; /* स्काई ब्लू थीम */
+    padding: 15px 30px;
+    box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+}
+
+.navbar {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    width: 100%;
+    max-width: 1400px;
+    margin: 0 auto;
+}
+
+.logo-section {
+    display: flex;
+    align-items: center;
+    gap: 15px;
+}
+
+.logo {
+    width: 45px;
+    height: 45px;
+    object-fit: contain;
+}
+
+header h1 {
+    font-size: 1.5rem;
+    color: white;
+    margin: 0;
+    font-weight: 700;
+}
+
+/* --- Navigation Links Styling --- */
+.nav-links {
+    display: flex;
+    gap: 15px;
+    align-items: center;
+}
+
+.nav-links a {
+    color: white;
+    text-decoration: none;
+    font-weight: 600;
+    padding: 8px 15px;
+    border-radius: 5px;
+    transition: background 0.3s, transform 0.2s;
+    font-size: 0.95rem;
+}
+
+.nav-links a:hover {
+    background-color: rgba(255, 255, 255, 0.3);
+}
+
+.logout-btn {
+    background-color: transparent !important; /* बाकी बटनों जैसा बैकग्राउंड */
+    color: white !important;
+    border: 1.5px solid white !important;     /* एक पतला सफेद बॉर्डर */
+    padding: 8px 15px !important;
+    border-radius: 5px !important;
+    font-weight: 600 !important;
+    margin-left: 20px !important;
+    transition: all 0.3s ease !important;
+}
+
+.logout-btn:hover {
+    background-color: #ff6b6b !important;    /* हॉवर करने पर लाल हो जाएगा */
+    border-color: #ff6b6b !important;
+    color: white !important;
+}
+
+/* Dashboard Layout Adjustments */
+.dashboard-wrapper {
+    max-width: 1000px;
+    margin: 10px auto 30px auto; /* Margin kam kiya taaki photo se doori na rahe */
+    padding: 0 15px;
+}
+
+.dashboard-header {
+    text-align: center;
+    margin-bottom: 20px; /* Header aur cards ke beech gap kam kiya */
+    padding-top: 5px;
+}
+
+.dashboard-header h1 {
+    font-size: 2rem; /* Size thoda compact kiya */
+    font-weight: 800;
+    color: #0077b6; /* हॉस्पिटल ब्लू थीम */
+    margin-bottom: 5px;
+    letter-spacing: -0.5px;
+    text-transform: capitalize;
+}
+
+.dashboard-header p {
+    font-size: 0.95rem;
+    color: #555;
+    font-weight: 400;
+    max-width: 500px;
+    margin: 0 auto;
+    font-style: italic;
+    opacity: 0.8;
+}
+
+/* Chote aur Compact Cards Grid */
+.menu-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); /* Min width kam ki */
+    gap: 15px; /* Cards ke beech gap kam kiya */
+    justify-content: center;
+}
+
+.menu-card {
+    background: #ffffff;
+    padding: 18px 12px; /* Inner space/padding kam ki */
+    border-radius: 12px;
+    text-decoration: none;
+    color: #333;
+    text-align: center;
+    box-shadow: 0 5px 15px rgba(0,0,0,0.05);
+    transition: all 0.3s ease;
+    border: 1px solid #e0e0e0;
+}
+
+.menu-card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 10px 20px rgba(0,119,182,0.15);
+    border-color: #0077b6;
+}
+
+.menu-card .icon {
+    font-size: 2rem; /* Icon ka size chota kiya */
+    display: block;
+    margin-bottom: 8px;
+}
+
+.menu-card h3 {
+    margin-bottom: 6px;
+    color: #0077b6;
+    font-size: 1.1rem; /* Text size adjust kiya */
+}
+
+.menu-card p {
+    font-size: 0.82rem; /* Description font size chota kiya */
+    color: #666;
+    line-height: 1.3;
+    margin: 0;
+}
+
+.form-wrapper {
+    display: flex;
+    flex-direction: column; /* ताकि बटन ऊपर और फॉर्म नीचे रहे */
+    align-items: center;    /* सेंटर में रखने के लिए */
+    padding: 20px;
+}
+
+.top-nav-right {
+    width: 100%;
+    max-width: 500px; /* आपके फॉर्म की चौड़ाई के बराबर */
+    display: flex;
+    justify-content: flex-end; /* बटन को राइट में धकेलने के लिए */
+    margin-bottom: 10px;
+}
+
+.dashboard-btn {
+    background: #ffffff;
+    color: #0077b6;
+    padding: 8px 16px;
+    border-radius: 8px;
+    text-decoration: none;
+    font-size: 0.85rem;
+    font-weight: 700;
+    border: 2px solid #0077b6;
+    transition: all 0.3s ease;
+}
+
+.dashboard-btn:hover {
+    background: #0077b6;
+    color: white;
+}
+/* सभी फॉर्म्स के लिए कॉमन क्लास - .common-form */
+.common-form {
+    background: #ffffff;
+    padding: 40px;
+    border-radius: 20px;
+    box-shadow: 0 10px 30px rgba(0,0,0,0.08);
+    width: 100%;
+    max-width: 500px;
+    margin: 20px auto; /* ऊपर नीचे मार्जिन */
+    border: 1px solid #f0f0f0;
+}
+
+.common-form h2 {
+    color: #0077b6;
+    margin-bottom: 20px;
+    font-weight: 700;
+}
+
+.common-form .form-group {
+    margin-bottom: 20px;
+    text-align: left;
+}
+
+.common-form label {
+    display: block;
+    margin-bottom: 8px;
+    font-weight: 600;
+    color: #444;
+}
+
+.common-form select,
+.common-form input {
+    width: 100%;
+    padding: 12px;
+    border: 2px solid #e0e0e0;
+    border-radius: 10px;
+    font-size: 1rem;
+    transition: 0.3s;
+    background-color: #f9f9f9;
+}
+
+.common-form select:focus,
+.common-form input:focus {
+    border-color: #0077b6;
+    background-color: #ffffff;
+    outline: none;
+    box-shadow: 0 0 8px rgba(0,119,182,0.15);
+}
+
+.common-form button {
+    width: 100%;
+    padding: 14px;
+    background: #0077b6;
+    color: white;
+    border: none;
+    border-radius: 10px;
+    font-size: 1.1rem;
+    font-weight: 700;
+    cursor: pointer;
+    transition: 0.3s;
+    margin-top: 10px;
+}
+
+.common-form button:hover {
+    background: #005f93;
+    transform: translateY(-2px);
+}
+
+.common-form input,
+.common-form select,
+.common-form textarea {
+    width: 100%;
+    padding: 10px 14px;
+    border: 1px solid #ced4da;
+    border-radius: 8px;
+    font-size: 0.95rem;
+    box-sizing: border-box;
+    background-color: #f8f9fa;
+}
+
+.common-form textarea {
+    height: 90px;
+    resize: vertical;
+    font-family: inherit;
+}
+
+
+/* --- Compact Grid Form Styling --- */
+
+/* फॉर्म बॉक्स की चौड़ाई और लेआउट */
+.grid-form {
+    max-width: 650px !important;
+    padding: 30px !important;
+}
+
+/* फॉर्म रो: 2 कॉलम का ग्रिड */
+.grid-form .form-row {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 20px;
+}
+
+/* इनपुट फील्ड्स को थोड़ा छोटा और सुंदर बनाना */
+.grid-form .form-group {
+    margin-bottom: 15px !important;
+}
+
+.grid-form label {
+    font-size: 0.85rem !important;
+    margin-bottom: 6px !important;
+    font-weight: 600 !important;
+    color: #444;
+}
+
+.grid-form input,
+.grid-form select {
+    padding: 10px !important;
+    font-size: 0.95rem !important;
+}
+
+/* बटन के लिए स्पेसिंग */
+.grid-form button {
+    margin-top: 10px !important;
+    padding: 12px !important;
+}
+
+/* रिस्पॉन्सिव: मोबाइल पर 1 कॉलम में आ जाएगा */
+@media (max-width: 600px) {
+    .grid-form .form-row {
+        grid-template-columns: 1fr;
+        gap: 0;
+    }
+}
+/* बटन कंटेनर को फॉर्म की चौड़ाई के हिसाब से राइट अलाइन करने के लिए */
+.header-anchor-right {
+    width: 100%;
+    max-width: 650px; /* आपके फॉर्म की चौड़ाई के बराबर रखें */
+    margin: 0 auto;   /* इसे सेंटर में रखेगा */
+    display: flex;
+    justify-content: flex-end; /* बटन को एकदम राइट में ले जाएगा */
+    padding-bottom: 10px;
+}
+
+/* टेबल का मॉडर्न लुक */
+.appointment-table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 20px;
+}
+
+.appointment-table th {
+    background: #f4f7f6;
+    padding: 15px;
+    text-align: left;
+    color: #333;
+}
+
+.appointment-table td {
+    padding: 15px;
+    border-bottom: 1px solid #eee;
+}
+
+/* स्टेटस बैज के लिए */
+.status-badge {
+    padding: 6px 12px;
+    border-radius: 15px;
+    font-size: 0.8rem;
+    font-weight: 600;
+}
+
+.status-confirmed { background: #d4edda; color: #155724; }
+.status-pending { background: #fff3cd; color: #856404; }
+
+/* --- प्रीमियम हॉस्पिटल पॉप-अप (Updated) --- */
+
+.swal2-popup.my-custom-popup {
+    width: 280px !important;
+    border-radius: 20px !important;
+    padding: 20px !important;
+    font-family: 'Segoe UI', Roboto, sans-serif !important;
+    box-shadow: 0 15px 30px rgba(0,0,0,0.1) !important;
+    background: #f0f4f8 !important;
+    /* ब्लू बॉर्डर जो बटन से मैच करेगा */
+    border: 3px solid #0077b6 !important;
+}
+
+.swal2-container.swal2-backdrop-show {
+    backdrop-filter: blur(4px) !important;
+    background: rgba(0, 0, 0, 0.2) !important;
+}
+
+/* बटन और टेक्स्ट के बीच की दूरी कम की */
+.swal2-html-container {
+    color: #666 !important;
+    font-size: 0.85rem !important;
+    margin: 5px 0 10px 0 !important; /* दूरी कम की */
+}
+
+/* बटन का स्टाइल */
+.swal2-styled.swal2-confirm {
+    background: linear-gradient(135deg, #0077b6, #00b4d8) !important;
+    border-radius: 50px !important;
+    padding: 8px 25px !important;
+    font-size: 0.8rem !important;
+    text-transform: uppercase;
+    border: none !important;
+    outline: none !important;
+    box-shadow: none !important;
+    margin-top: 5px !important; /* बटन को ऊपर खींचा */
+    transition: all 0.3s ease !important;
+}
+
+.swal2-styled.swal2-confirm:hover {
+    background: linear-gradient(135deg, #005f93, #008eb5) !important;
+    transform: translateY(-2px);
+}
+
+/* सर्कल टिक का स्टाइल */
+.circle-tick {
+    width: 50px;
+    height: 50px;
+    border: 3px solid #28a745;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin: 0 auto 10px auto;
+    font-size: 25px;
+    color: #28a745;
+    animation: popIn 0.5s cubic-bezier(0.175, 0.885, 0.32, 1.275) forwards;
+}
+
+@keyframes popIn {
+    0% { transform: scale(0); opacity: 0; }
+    100% { transform: scale(1); opacity: 1; }
+}
+
+/* वीडियो को सेंटर और रिस्पॉन्सिव रखने के लिए */
+.video-container {
+    max-width: 800px;
+    margin: 20px auto;
+    border-radius: 15px;
+    overflow: hidden;
+    box-shadow: 0 10px 20px rgba(0,0,0,0.2);
+}
+
+.landing-content {
+    text-align: center;
+    padding: 50px 20px;
+}
+
+.action-buttons {
+    margin-top: 30px;
+}
+.hero-section {
+    position: relative;
+    width: 100%;
+    height: 90vh; /* हेडर और फुटर के बीच की जगह */
+    overflow: hidden;
+}
+
+.bg-video {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: cover; /* यह वीडियो को बिना स्ट्रेच किए पूरी स्क्रीन भर देगा */
+    z-index: -1;
+}
+
+.hero-overlay {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    height: 100%;
+    color: white;
+    background: rgba(0, 0, 0, 0.4); /* हल्का डार्क शेड ताकि टेक्स्ट दिखे */
+}
+
+/* Navbar को आपके पुराने स्टाइल जैसा बनाएं */
+.navbar {
+    display: flex;
+    justify-content: space-between;
+    padding: 15px 50px;
+    background: #87ceeb; /* आपका लाइट ब्लू कलर */
+    color: white;
+}

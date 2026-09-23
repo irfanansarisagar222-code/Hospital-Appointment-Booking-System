@@ -1,0 +1,261 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Book Appointment</title>
+    <!-- Bootstrap CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" type="text/css" th:href="@{/css/style.css}">
+
+    <!-- SweetAlert2 JS -->
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+
+    <style>
+        .form-wrapper {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            padding: 30px 15px;
+        }
+
+        .common-form {
+            width: 100%;
+            max-width: 600px;
+            background: #ffffff;
+            padding: 30px;
+            border-radius: 16px;
+            box-shadow: 0 5px 20px rgba(0, 0, 0, 0.08);
+            border: 1px solid #e0e0e0;
+        }
+
+        .common-form h2 {
+            color: #0077b6;
+            font-weight: 700;
+            margin-bottom: 20px;
+            text-align: center;
+        }
+
+        .form-group {
+            margin-bottom: 15px;
+            text-align: left;
+        }
+
+        .form-group label {
+            display: block;
+            font-weight: 600;
+            margin-bottom: 6px;
+            color: #333;
+            font-size: 0.9rem;
+        }
+
+        .form-group input,
+        .form-group select,
+        .form-group textarea {
+            width: 100%;
+            padding: 10px 14px;
+            border: 1px solid #ced4da;
+            border-radius: 8px;
+            font-size: 0.95rem;
+            outline: none;
+            box-sizing: border-box;
+            background-color: #f8f9fa;
+        }
+
+        .form-group input:focus,
+        .form-group select:focus,
+        .form-group textarea:focus {
+            border-color: #0077b6;
+            background-color: #fff;
+            box-shadow: 0 0 0 3px rgba(0, 119, 182, 0.15);
+        }
+
+        .btn-submit {
+            width: 100%;
+            background-color: #0077b6;
+            color: white;
+            padding: 12px;
+            border: none;
+            border-radius: 8px;
+            font-size: 1rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+            margin-top: 10px;
+        }
+
+        .btn-submit:hover {
+            background-color: #0056b3;
+        }
+
+        /* Header Back Button Styling */
+        .nav-back-btn {
+            background: transparent !important;
+            color: white !important;
+            border: 1.5px solid white !important;
+            padding: 6px 14px !important;
+            border-radius: 6px !important;
+            text-decoration: none !important;
+            font-size: 0.85rem !important;
+            font-weight: 600 !important;
+            transition: all 0.3s ease !important;
+        }
+
+        .nav-back-btn:hover {
+            background: white !important;
+            color: #0077b6 !important;
+        }
+
+        /* --- प्रीमियम हॉस्पिटल पॉप-अप (Custom CSS) --- */
+        .swal2-popup.my-custom-popup {
+            width: 280px !important;
+            border-radius: 20px !important;
+            padding: 20px !important;
+            font-family: 'Segoe UI', Roboto, sans-serif !important;
+            box-shadow: 0 15px 30px rgba(0,0,0,0.1) !important;
+            background: #f0f4f8 !important;
+            border: 3px solid #0077b6 !important;
+        }
+
+        .swal2-container.swal2-backdrop-show {
+            backdrop-filter: blur(4px) !important;
+            background: rgba(0, 0, 0, 0.2) !important;
+        }
+
+        .swal2-html-container {
+            color: #666 !important;
+            font-size: 0.85rem !important;
+            margin: 5px 0 10px 0 !important;
+        }
+
+        .swal2-styled.swal2-confirm {
+            background: linear-gradient(135deg, #0077b6, #00b4d8) !important;
+            border-radius: 50px !important;
+            padding: 8px 25px !important;
+            font-size: 0.8rem !important;
+            text-transform: uppercase;
+            border: none !important;
+            outline: none !important;
+            box-shadow: none !important;
+            margin-top: 5px !important;
+            transition: all 0.3s ease !important;
+        }
+
+        .swal2-styled.swal2-confirm:hover {
+            background: linear-gradient(135deg, #005f93, #008eb5) !important;
+            transform: translateY(-2px);
+        }
+
+        .circle-tick {
+            width: 50px;
+            height: 50px;
+            border: 3px solid #28a745;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 0 auto 10px auto;
+            font-size: 25px;
+            color: #28a745;
+            animation: popIn 0.5s cubic-bezier(0.175, 0.885, 0.32, 1.275) forwards;
+        }
+
+        @keyframes popIn {
+            0% { transform: scale(0); opacity: 0; }
+            100% { transform: scale(1); opacity: 1; }
+        }
+    </style>
+</head>
+<body>
+
+<header>
+    <div class="navbar" style="display: flex; justify-content: space-between; align-items: center; padding: 12px 30px;">
+        <h1 style="color: white; font-size: 1.4rem; margin: 0;">Hospital Appointment System</h1>
+        <nav class="nav-links">
+            <a href="/user/dashboard" class="nav-back-btn">&larr; Back to Dashboard</a>
+        </nav>
+    </div>
+</header>
+
+<main class="form-wrapper">
+    <div class="common-form">
+        <h2>Book Appointment</h2>
+
+        <form th:action="@{/user/appointments/save}" method="POST">
+            <div class="form-group">
+                <label>Select Doctor:</label>
+                <select name="doctorId" required>
+                    <option value="" disabled selected>-- Select Doctor --</option>
+                    <option th:each="doc : ${doctors}" th:value="${doc.id}" th:text="${doc.name}"></option>
+                </select>
+            </div>
+
+            <div class="form-group">
+                <label>Select Patient:</label>
+                <select name="patientId" required>
+                    <option value="" disabled selected>-- Select Patient --</option>
+                    <option th:each="pat : ${patients}" th:value="${pat.id}" th:text="${pat.name}"></option>
+                </select>
+            </div>
+
+            <div class="form-group">
+                <label>Appointment Date:</label>
+                <input type="date" name="appointmentDate" required>
+            </div>
+
+            <div class="form-group">
+                <label>Health Issues / Symptoms:</label>
+                <textarea name="symptoms" rows="3" placeholder="Apni takleef yahan likhein..." required></textarea>
+            </div>
+
+            <div class="form-group">
+                <label>Select Appointment Time:</label>
+                <select name="appointmentTime" required>
+                    <option value="" disabled selected>-- Time select karein --</option>
+                    <option value="10:00 AM">10:00 AM</option>
+                    <option value="11:00 AM">11:00 AM</option>
+                    <option value="12:00 PM">12:00 PM</option>
+                    <option value="02:00 PM">02:00 PM</option>
+                    <option value="03:00 PM">03:00 PM</option>
+                    <option value="04:00 PM">04:00 PM</option>
+                    <option value="05:00 PM">05:00 PM</option>
+                </select>
+            </div>
+
+            <div class="form-group">
+                <label>Priority:</label>
+                <select name="priority" required>
+                    <option value="Normal">Normal</option>
+                    <option value="Urgent">Urgent</option>
+                    <option value="Emergency">Emergency</option>
+                </select>
+            </div>
+
+            <button type="submit" class="btn-submit">Confirm Booking</button>
+        </form>
+    </div>
+</main>
+
+<footer>
+    <p>&copy; 2026 Hospital Appointment System. All Rights Reserved.</p>
+</footer>
+
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+
+<!-- Aapki Premium SweetAlert Script -->
+<script th:if="${successMessage}">
+    Swal.fire({
+        html: `
+            <div class="circle-tick">✓</div>
+            <div style="color: #333; font-weight: 700; font-size: 1.2rem; margin-bottom: 5px;">Booked!</div>
+            <div style="color: #666; font-size: 0.85rem;">Your appointment has been booked successfully.</div>
+        `,
+        confirmButtonText: 'Back to Dashboard',
+        customClass: { popup: 'my-custom-popup' },
+        buttonsStyling: true
+    }).then((result) => {
+        window.location.href = '/user/dashboard';
+    });
+</script>
+
+</body>
+</html>
