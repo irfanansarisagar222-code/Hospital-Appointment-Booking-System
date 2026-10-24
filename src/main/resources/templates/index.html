@@ -8,41 +8,56 @@
 <body>
 
 <header>
-    <h1>Hospital Appointment System</h1>
+    <div class="navbar" style="display: flex; justify-content: space-between; align-items: center; padding: 15px 30px; background-color: #87CEEB;">
+        <div class="logo-section" style="display: flex; align-items: center; gap: 12px;">
+            <!-- Yeh raha logo ka direct code jisme background aur plus sign inline styled hai -->
+            <div class="medical-logo" style="width: 42px; height: 42px; background-color: #ffffff; border-radius: 50%; display: flex; align-items: center; justify-content: center; box-shadow: 0 3px 6px rgba(0,0,0,0.15); flex-shrink: 0;">
+                <span style="font-size: 26px; font-weight: bold; color: #007bff; line-height: 1; margin-top: -2px;">+</span>
+            </div>
+            <h1 style="font-size: 1.8rem; color: #ffffff; font-weight: bold; margin: 0;">Hospital Appointment System</h1>
+        </div>
+        <nav class="nav-links" style="display: flex; gap: 20px;">
+            <a href="/" style="color: #ffffff; text-decoration: none; font-weight: 600; font-size: 1.1rem;">Home</a>
+            <a href="/auth/login" style="color: #ffffff; text-decoration: none; font-weight: 600; font-size: 1.1rem;">Login</a>
+            <a href="/signup" style="color: #ffffff; text-decoration: none; font-weight: 600; font-size: 1.1rem;">Signup</a>
+        </nav>
+    </div>
 </header>
 
 <main>
-    <div class="card">
-        <h3>Main Menu</h3>
-
-        <div class="nav-card">
-            <p><strong>Doctors</strong></p>
-            <a href="/doctors/add" class="btn-primary">Add Doctor</a>
-            <a href="/doctors/list" class="btn-primary">View All</a>
+    <div class="hero-section">
+        <div class="hero-content">
+            <h1>Welcome to Our Healthcare Portal</h1>
+            <p>Book your appointments easily and manage your health with top specialists.</p>
+            <div class="hero-buttons">
+                <a href="/auth/login" class="btn btn-primary">Book Now</a>
+                <a href="/doctors" class="btn btn-secondary">Find a Doctor</a>
+                <a href="/my-bookings" class="btn btn-outline">View Bookings</a>
+            </div>
         </div>
-
-        <div class="nav-card">
-            <p><strong>Patients</strong></p>
-            <a href="/patients/add" class="btn-primary">Add Patient</a>
-            <a href="/patients/list" class="btn-primary">View All</a>
-        </div>
-
-        <div class="nav-card">
-            <p><strong>Appointments</strong></p>
-            <a href="/appointments/book" class="btn-primary">Book New</a>
-            <a href="/appointments/list-appointment" class="btn-primary">View All</a>
-        </div>
-
-        <hr style="margin: 20px 0;">
-
-        <form th:action="@{/logout}" method="post">
-            <button type="submit" class="btn-danger">Logout</button>
-        </form>
     </div>
 </main>
 
 <footer>
-    <p>&copy; 2026 Hospital Appointment System</p>
+    <div class="footer-content">
+        <div class="footer-section">
+            <h4>Hospital Appointment System</h4>
+            <p>Providing the best healthcare <br> appointment solutions for you.</p>
+        </div>
+        <div class="footer-section">
+            <h4>Quick Links</h4>
+            <a href="/">Home</a>
+            <a href="/user/my-appointments">My Bookings</a>
+            <a href="/user/update-patient">My Profile</a>
+        </div>
+        <div class="footer-section">
+            <h4>Contact Us</h4>
+            <p>📍 Sagar, Madhya Pradesh</p>
+            <p>📧 support@hospital.com</p>
+        </div>
+    </div>
+    <hr style="margin: 20px 0; border: 0; border-top: 1px solid #ddd;">
+    <p style="text-align: center;">&copy; 2026 Hospital Appointment System. All Rights Reserved.</p>
 </footer>
 
 </body>

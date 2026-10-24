@@ -20,6 +20,7 @@ import java.nio.file.Paths;
 import java.nio.file.StandardCopyOption;
 import java.security.Principal;
 import java.util.List;
+import java.util.stream.Collectors;
 
 @Controller
 @RequestMapping("/user")
@@ -35,8 +36,15 @@ public class UserController {
     Appointment_repo appointment_repo;
 
     @GetMapping("/dashboard")
-    public String userDashboard() {
-        return "user-dashboard"; // templates folder mein user-dashboard.html honi chahiye
+    public String userDashboard(Model model, Principal principal) {
+        // 1. Database se logged-in user ko nikalein
+        User_Entity user = user_repo.findByEmail(principal.getName()).orElse(null);
+
+        // 2. Model mein user object zaroor bhejein (yeh line sabse zaroori hai)
+        model.addAttribute("user", user);
+
+        // Baaki jo tumhara purana code ho wo yahan rehne dena
+        return "user-dashboard";
     }
 
     //Appointment Controller Code Merge
@@ -124,19 +132,29 @@ public class UserController {
         String email = principal.getName();
         System.out.println("DEBUG: Logged-in Email: " + email);
 
-        Patient_Entity currentPatient = patient_repo.findByEmail(email);
+        // 1. Ek email par multiple patient records ho sakte hain, isliye List use karein
+        List<Patient_Entity> patientList = patient_repo.findByEmail(email);
 
-        if (currentPatient == null) {
+        if (patientList == null || patientList.isEmpty()) {
             System.out.println("DEBUG: Database mein is email se koi patient nahi mila: " + email);
             model.addAttribute("error", "Patient profile not found!");
             return "my-bookings";
         }
 
-        System.out.println("DEBUG: Patient Found! ID: " + currentPatient.getId());
-        model.addAttribute("myAppointments", appointment_repo.findByPatientId(currentPatient.getId()));
+        // 2. Sabhi matched patients ki IDs nikal lein
+        List<Long> patientIds = patientList.stream()
+                .map(Patient_Entity::getId)
+                .collect(Collectors.toList());
+
+        System.out.println("DEBUG: Found Patient IDs: " + patientIds);
+
+        // 3. Un sabhi patient IDs ki jitni bhi appointments hain, unki List fetch karein
+        // (Dhyan rahe Appointment_repo me findByPatientIdIn method hona chahiye)
+        List<Appointment_Entity> allAppointments = appointment_repo.findByPatientIdIn(patientIds);
+
+        model.addAttribute("myAppointments", allAppointments);
         return "my-bookings";
     }
-
     @PostMapping("/upload-photo")
     public String uploadProfilePhoto(@RequestParam("file") MultipartFile file, Principal principal) {
         if (file.isEmpty()) return "redirect:/user/dashboard?error";
@@ -164,4 +182,5 @@ public class UserController {
         }
         return "redirect:/user/dashboard";
     }
+
 }

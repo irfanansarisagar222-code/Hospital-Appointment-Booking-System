@@ -21,7 +21,7 @@
             background: #ffffff;
             padding: 30px;
             border-radius: 16px;
-            box-shadow: 0 5px 20px rgba(0, 0, 0, 0.08);
+            box-shadow: 0 5px 20px rgba(0, 0, 0, 0.05);
             border: 1px solid #e0e0e0;
         }
 
@@ -41,7 +41,7 @@
             display: block;
             font-weight: 600;
             margin-bottom: 6px;
-            color: #333;
+            color: #555;
             font-size: 0.9rem;
         }
 
@@ -61,7 +61,7 @@
         .form-group select:focus {
             border-color: #0077b6;
             background-color: #fff;
-            box-shadow: 0 0 0 3px rgba(0, 119, 182, 0.15);
+            box-shadow: 0 0 3px rgba(0, 119, 182, 0.15);
         }
 
         .btn-submit {
@@ -82,7 +82,7 @@
             background-color: #0056b3;
         }
 
-        /* Header Back Button Styling (Doctor List Se Exactly Matched) */
+        /* Original Header Back Button Style */
         .nav-back-btn {
             background: transparent !important;
             color: white !important;
@@ -99,13 +99,121 @@
             background: white !important;
             color: #0077b6 !important;
         }
+
+        /* Custom Modal Styling matching Project Theme */
+        .custom-modal-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.5);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            z-index: 9999;
+            visibility: hidden;
+            opacity: 0;
+            transition: opacity 0.3s ease, visibility 0.3s ease;
+        }
+
+        .custom-modal-overlay.show {
+            visibility: visible;
+            opacity: 1;
+        }
+
+        .custom-modal-box {
+            background: #ffffff;
+            width: 100%;
+            max-width: 420px;
+            padding: 30px;
+            border-radius: 16px;
+            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.15);
+            text-align: center;
+            transform: scale(0.9);
+            transition: transform 0.3s ease;
+        }
+
+        .custom-modal-overlay.show .custom-modal-box {
+            transform: scale(1);
+        }
+
+        .modal-icon {
+            width: 50px;
+            height: 50px;
+            background-color: #e0f2fe;
+            color: #0077b6;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 0 auto 15px auto;
+            font-size: 24px;
+            font-weight: bold;
+        }
+
+        .custom-modal-box h3 {
+            color: #212529;
+            font-weight: 700;
+            margin-bottom: 10px;
+            font-size: 1.25rem;
+        }
+
+        .custom-modal-box p {
+            color: #6c757d;
+            font-size: 0.95rem;
+            margin-bottom: 25px;
+        }
+
+        .modal-actions {
+            display: flex;
+            gap: 12px;
+        }
+
+        .btn-modal-cancel {
+            flex: 1;
+            background-color: #f1f3f5;
+            color: #495057;
+            border: none;
+            padding: 10px;
+            border-radius: 8px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: background-color 0.2s;
+        }
+
+        .btn-modal-cancel:hover {
+            background-color: #e2e6ea;
+        }
+
+        .btn-modal-confirm {
+            flex: 1;
+            background-color: #0077b6;
+            color: white;
+            border: none;
+            padding: 10px;
+            border-radius: 8px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: background-color 0.2s;
+        }
+
+        .btn-modal-confirm:hover {
+            background-color: #0056b3;
+        }
     </style>
 </head>
 <body>
 
+<!-- Original Header Restored -->
 <header>
-    <div class="navbar" style="display: flex; justify-content: space-between; align-items: center; padding: 12px 30px;">
-        <h1 style="color: white; font-size: 1.4rem; margin: 0;">Hospital Appointment System</h1>
+    <div class="navbar" style="background-color: #87ceeb; padding: 15px 30px; display: flex; justify-content: space-between; align-items: center;">
+        <h1 style="color: white; font-size: 1.5rem; margin: 0; font-weight: bold; display: flex; align-items: center;">
+    <span style="background-color: white; border-radius: 50%; width: 40px; height: 40px; display: inline-flex; align-items: center; justify-content: center; margin-right: 12px; flex-shrink: 0;">
+        <span style="color: #38bdf8; font-size: 28px; font-weight: bold; line-height: 1; margin-top: -2px;">+</span>
+    </span>
+            Smart Healthcare Appointment & Patient System
+        </h1>
         <nav class="nav-links">
             <a href="/admin/dashboard" class="nav-back-btn">&larr; Back to Dashboard</a>
         </nav>
@@ -116,7 +224,7 @@
     <div class="common-form">
         <h2>Add New Doctor</h2>
 
-        <form action="/admin/doctors/save" method="POST">
+        <form id="doctorForm" th:action="@{/admin/doctors/save}" method="POST">
             <div class="form-group">
                 <label>Doctor Name:</label>
                 <input type="text" name="name" placeholder="Dr. Full Name" required>
@@ -163,15 +271,59 @@
                 <input type="text" name="workingHours" placeholder="e.g., 10:00 AM - 02:00 PM" required>
             </div>
 
-            <button type="submit" class="btn-submit">Submit Details</button>
+            <!-- Submit Button -->
+            <button type="button" id="submitBtn" class="btn-submit">Submit Details</button>
         </form>
     </div>
 </main>
 
-<footer>
-    <p>&copy; 2026 Hospital Appointment System. All Rights Reserved.</p>
+<!-- Confirmation Modal -->
+<div id="confirmationModal" class="custom-modal-overlay">
+    <div class="custom-modal-box">
+        <div class="modal-icon">✓</div>
+        <h3>Confirm Submission</h3>
+        <p>Kya aap doctor ki yeh details submit karna chahte hain?</p>
+        <div class="modal-actions">
+            <button type="button" id="cancelBtn" class="btn-modal-cancel">Cancel</button>
+            <button type="button" id="confirmBtn" class="btn-modal-confirm">Yes, Submit</button>
+        </div>
+    </div>
+</div>
+
+<footer style="text-align: center; padding: 15px; background-color: #87ceeb; margin-top: 30px;">
+    <p style="margin: 0; color: #fff; font-weight: 500;">&copy; Smart Healthcare Appointment & Patient System. All Rights Reserved.</p>
 </footer>
 
-<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+<!-- Scripting for Modal Trigger and Close -->
+<script>
+    const submitBtn = document.getElementById('submitBtn');
+    const confirmationModal = document.getElementById('confirmationModal');
+    const cancelBtn = document.getElementById('cancelBtn');
+    const confirmBtn = document.getElementById('confirmBtn');
+    const doctorForm = document.getElementById('doctorForm');
+
+    submitBtn.addEventListener('click', () => {
+        if (doctorForm.checkValidity()) {
+            confirmationModal.classList.add('show');
+        } else {
+            doctorForm.reportValidity();
+        }
+    });
+
+    cancelBtn.addEventListener('click', () => {
+        confirmationModal.classList.remove('show');
+    });
+
+    confirmationModal.addEventListener('click', (e) => {
+        if (e.target === confirmationModal) {
+            confirmationModal.classList.remove('show');
+        }
+    });
+
+    confirmBtn.addEventListener('click', () => {
+        confirmationModal.classList.remove('show');
+        doctorForm.submit();
+    });
+</script>
 </body>
 </html>

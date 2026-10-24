@@ -3,90 +3,135 @@
 <head>
     <meta charset="UTF-8">
     <title>Patient Registration</title>
-    <link rel="stylesheet" type="text/css" th:href="@{/css/style.css}">
+    <link rel="stylesheet" th:href="@{/css/style.css}">
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 </head>
 <body>
 
 <header>
-    <div class="navbar">
-        <h1 style="color: white; font-size: 1.4rem;">Hospital Management System</h1>
+    <div class="navbar" style="background-color: #87ceeb; padding: 15px 30px; display: flex; justify-content: space-between; align-items: center;">
+        <h1 style="color: white; font-size: 1.5rem; margin: 0; font-weight: bold; display: flex; align-items: center;">
+    <span style="background-color: white; border-radius: 50%; width: 40px; height: 40px; display: inline-flex; align-items: center; justify-content: center; margin-right: 12px; flex-shrink: 0;">
+        <span style="color: #38bdf8; font-size: 28px; font-weight: bold; line-height: 1; margin-top: -2px;">+</span>
+    </span>
+            Smart Healthcare Appointment & Patient <System></System>
+        </h1>
         <nav class="nav-links">
-            <a href="/user/my-appointments">My Appointments</a>
-            <a href="/user/update-patient">My Profile</a>
+            <a href="/user/dashboard" class="nav-back-btn">&larr; Back to Dashboard</a>
         </nav>
     </div>
 </header>
 
 <main class="form-wrapper">
-    <div class="header-anchor-right">
-        <a href="/user/dashboard" class="dashboard-btn">&larr; Back to Dashboard</a>
-    </div>
+
 
     <div class="common-form grid-form">
         <h2>Patient Registration</h2>
-        <form action="/user/patients/save" method="POST">
+        <!-- Form me id="patientForm" add kiya gaya hai -->
+        <form id="patientForm" th:action="@{/user/patients/save}" method="POST">
 
             <div class="form-row">
-                <div class="form-group"><label>Full Name:</label><input type="text" name="name" required></div>
-                <div class="form-group"><label>Age:</label><input type="number" name="age" required></div>
+                <div class="form-group">
+                    <label>Full Name:</label>
+                    <input type="text" name="name" required>
+                </div>
+                <div class="form-group">
+                    <label>Age:</label>
+                    <input type="number" name="age" required>
+                </div>
             </div>
 
             <div class="form-row">
-                <div class="form-group"><label>Gender:</label>
+                <div class="form-group">
+                    <label>Gender:</label>
                     <select name="gender">
-                        <option value="Male">Male</option><option value="Female">Female</option><option value="Other">Other</option>
+                        <option value="Male">Male</option>
+                        <option value="Female">Female</option>
+                        <option value="Other">Other</option>
                     </select>
                 </div>
-                <div class="form-group"><label>Phone Number:</label><input type="tel" name="phoneNumber" required></div>
+                <div class="form-group">
+                    <label>Phone Number:</label>
+                    <input type="tel" name="phoneNumber" required>
+                </div>
             </div>
 
             <div class="form-row">
-                <div class="form-group"><label>Blood Group:</label>
+                <div class="form-group">
+                    <label>Blood Group:</label>
                     <select name="bloodGroup">
-                        <option value="A+">A+</option><option value="B+">B+</option><option value="A-">A-</option><option value="B-">B-</option><option value="O+">O+</option><option value="O-">O-</option><option value="AB+">AB+</option><option value="AB-">AB-</option>
+                        <option value="A+">A+</option>
+                        <option value="A-">A-</option>
+                        <option value="B+">B+</option>
+                        <option value="B-">B-</option>
+                        <option value="AB+">AB+</option>
+                        <option value="AB-">AB-</option>
+                        <option value="O+">O+</option>
+                        <option value="O-">O-</option>
                     </select>
                 </div>
-                <div class="form-group"><label>Emergency Contact:</label><input type="tel" name="emergencyContact" required></div>
+                <div class="form-group">
+                    <label>Emergency Contact:</label>
+                    <input type="tel" name="emergencyContact" required>
+                </div>
             </div>
 
-            <div class="form-group">
-                <label>Email Address:</label>
-                <input type="email" name="email" required>
+            <div class="form-row">
+                <div class="form-group">
+                    <label>Email Address:</label>
+                    <input type="email" name="email" required>
+                </div>
             </div>
-            <button type="submit" style="margin-top: 15px;">Register Patient</button>
+
+            <button type="submit" style="...">Register Patient</button>
         </form>
     </div>
 </main>
-<script th:if="${successMessage}">
-    Swal.fire({
-        html: `
-            <div class="circle-tick">✓</div>
-            <div style="color: #333; font-weight: 700; font-size: 1.2rem; margin-bottom: 5px;">Success!</div>
-            <div style="color: #666; font-size: 0.85rem;">Record saved successfully.</div>
-        `,
-        confirmButtonText: 'Back to Dashboard',
-        customClass: { popup: 'my-custom-popup' },
-        buttonsStyling: true
-    }).then((result) => {
-        window.location.href = '/user/dashboard';
+
+<script>
+    // Register Patient button dabane par confirmation popup dikhane ke liye
+    document.getElementById('patientForm').addEventListener('submit', function(event) {
+        event.preventDefault(); // Form ko turant submit hone se rokein
+
+        Swal.fire({
+            title: 'Are you sure?',
+            text: "You want to register this patient?",
+            icon: 'warning',
+            showCancelButton: true,
+            confirmButtonColor: '#3085d6',
+            cancelButtonColor: '#d33',
+            confirmButtonText: 'Yes, register it!',
+            customClass: { popup: 'my-custom-popup' },
+            buttonsStyling: true
+        }).then((result) => {
+            if (result.isConfirmed) {
+                event.target.submit(); // User ke 'Yes' karne par form submit hoga
+            }
+        });
     });
+
+    // Record save hone ke baad success message aur dashboard redirect wala code
+    /*[+
+    var successMsg = [[${successMessage}]];
+    if (successMsg) {
+        Swal.fire({
+            html: `
+                <div class="circle-tick"></div>
+                <div style="color: #333; font-weight: 700; font-size: 1.2rem; margin-bottom: 5px;">Success!</div>
+                <div style="color: #666; font-size: 0.85rem;">Record saved successfully.</div>
+            `,
+            confirmButtonText: 'Back to Dashboard',
+            customClass: { popup: 'my-custom-popup' },
+            buttonsStyling: true
+        }).then((result) => {
+            window.location.href = '/user/dashboard';
+        });
+    }
+    +]*/
 </script>
 
-<footer>
-    <div class="footer-content">
-        <div class="footer-section">
-            <h4>Hospital Appointment System</h4>
-            <p>Providing the best healthcare <br> appointment solutions for you.</p>
-        </div>
-        <div class="footer-section">
-            <h4>Contact Us</h4>
-            <p>📍 Sagar, Madhya Pradesh</p>
-            <p>📧 support@hospital.com</p>
-        </div>
-    </div>
-    <hr style="margin: 20px 0; border: 0; border-top: 1px solid #ddd;">
-    <p style="text-align: center;">&copy; 2026 Hospital Appointment System. All Rights Reserved.</p>
+<footer style="text-align: center; padding: 15px; background-color: #87ceeb; margin-top: 30px;">
+    <p style="margin: 0; color: #fff; font-weight: 500;">&copy; 2026 Smart Healthcare Appointment & Patient System. All Rights Reserved.</p>
 </footer>
 
 

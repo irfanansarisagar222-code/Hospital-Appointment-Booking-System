@@ -8,4 +8,5 @@ import java.util.List;
 public interface Appointment_repo extends JpaRepository<Appointment_Entity,Long> {
     // Appointment_repo.java mein ye hona chahiye
     List<Appointment_Entity> findByPatientEmail(String email);
-    List<Appointment_Entity> findByPatientId(Long patientId);}
+    List<Appointment_Entity> findByPatientId(Long patientId);
+    List<Appointment_Entity> findByPatientIdIn(List<Long> patientIds);}

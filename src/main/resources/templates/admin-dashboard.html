@@ -112,10 +112,22 @@
 <header>
     <div class="navbar">
         <div class="welcome-section">
-            <h1 style="margin: 0; font-size: 1.4rem; color: white;">Hospital Admin Portal</h1>
+            <h1 style="color: white; font-size: 1.5rem; margin: 0; font-weight: bold; display: flex; align-items: center;">
+    <span style="background-color: white; border-radius: 50%; width: 40px; height: 40px; display: inline-flex; align-items: center; justify-content: center; margin-right: 12px; flex-shrink: 0;">
+        <span style="color: #38bdf8; font-size: 28px; font-weight: bold; line-height: 1; margin-top: -2px;">+</span>
+    </span>
+                HealthCare Admin Portal
+            </h1>
+
+
         </div>
         <nav class="nav-links">
-            <span style="color: white; font-weight: 500;">Role: Administrator</span>
+            <a href="/admin/add-doctor">Add Doctor</a>
+            <a href="/admin/doctors">View Doctor</a>
+            <a href="/admin/list-appointment">Appointments</a>
+            <a href="/admin/patient-list">Patient List</a>
+            <!-- हेडर का Logout बटन -->
+            <a href="/logout" class="logout-btn">Logout</a>
         </nav>
     </div>
 </header>
@@ -154,15 +166,28 @@
     </div>
 
     <!-- Logout Button -->
-    <div class="logout-container">
-        <form th:action="@{/logout}" method="post">
-            <button type="submit" class="btn-admin-logout">Logout System</button>
-        </form>
-    </div>
 </main>
 
 <footer>
-    <p>&copy; 2026 Hospital Appointment System. All Rights Reserved.</p>
+    <div class="footer-content">
+        <div class="footer-section">
+            <h4>Smart Healthcare Appointment & Patient System</h4>
+            <p>Providing the best healthcare <br> appointment solutions for you.</p>
+        </div>
+        <div class="footer-section">
+            <h4>Quick Links</h4>
+            <a href="/">Home</a>
+            <a href="/admin/doctors">View Doctors</a>
+            <a href="/admin/patient-list">Patients List</a>
+        </div>
+        <div class="footer-section">
+            <h4>Contact Us</h4>
+            <p>📍 Sagar, Madhya Pradesh</p>
+            <p>📧 support@hospital.com</p>
+        </div>
+    </div>
+    <hr style="margin: 20px 0; border: 0; border-top: 1px solid #ddd;">
+    <p style="text-align: center;">&copy; 2026 Smart Healthcare Appointment & Patient System. All Rights Reserved.</p>
 </footer>
 
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>

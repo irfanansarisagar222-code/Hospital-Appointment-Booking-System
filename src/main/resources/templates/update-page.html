@@ -3,48 +3,51 @@
 <head>
     <meta charset="UTF-8">
     <title>Update Patient Data</title>
-    <link rel="stylesheet" type="text/css" th:href="@{/css/style.css}">
+    <link rel="stylesheet" th:href="@{/css/style.css}">
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 </head>
 <body>
 
 <header>
-    <div class="navbar">
-        <h1 style="color: white; font-size: 1.4rem;">Hospital Appointment System</h1>
+    <div class="navbar" style="background-color: #87ceeb; padding: 15px 30px; display: flex; justify-content: space-between; align-items: center;">
+        <h1 style="color: white; font-size: 1.5rem; margin: 0; font-weight: bold; display: flex; align-items: center;">
+    <span style="background-color: white; border-radius: 50%; width: 40px; height: 40px; display: inline-flex; align-items: center; justify-content: center; margin-right: 12px; flex-shrink: 0;">
+        <span style="color: #38bdf8; font-size: 28px; font-weight: bold; line-height: 1; margin-top: -2px;">+</span>
+    </span>
+            Smart Healthcare Appointment & Patient <System></System>
+        </h1>
         <nav class="nav-links">
-            <a href="/user/book-appointment">Book Appointment</a>
-            <a href="/user/my-appointments">My Appointments</a>
-            <a href="/user/add-patient">Add New Patient</a>
+            <a href="/user/dashboard" class="nav-back-btn">&larr; Back to Dashboard</a>
         </nav>
     </div>
 </header>
 
+
 <main class="form-wrapper">
-    <div class="header-anchor-right">
-        <a href="/user/dashboard" class="dashboard-btn">&larr; Back to Dashboard</a>
-    </div>
+
+
     <div class="common-form grid-form">
         <h2>Edit Profile</h2>
         <form th:action="@{/user/update-patient}" method="get">
             <div class="form-group">
                 <label>Select ID to Edit:</label>
                 <select name="id" onchange="this.form.submit()">
-                    <option value="">-- Choose ID --</option>
+                    <option value="">--- Choose ID ---</option>
                     <option th:each="p : ${allPatients}"
                             th:value="${p.id}"
-                            th:text="${p.id} + ' - ' + ${p.name}"
+                            th:text="${p.id + ' - ' + p.name}"
                             th:selected="${patient != null and patient.id == p.id}"></option>
                 </select>
             </div>
         </form>
 
-        <hr style="margin: 20px 0; border: 0; border-top: 1px solid #eee;">
+        <hr style="...">
 
         <div th:if="${patient != null}">
-            <form th:action="@{/user/update-patient/{id}(id=${patient.id})}" th:object="${patient}" method="post">
-                <p>Editing Profile for ID: <b th:text="${patient.id}"></b></p>
+            <!-- फॉर्म में id="updateForm" जोड़ा गया है -->
+            <form id="updateForm" th:action="@{/user/update-patient/{id}(id=${patient.id})}" th:object="${patient}" method="post">
+                <p>Editing Profile for ID: <b><span th:text="${patient.id}"></span></b></p>
 
-                <!-- ग्रिड रो ताकि फॉर्म कॉम्पैक्ट दिखे -->
                 <div class="form-row">
                     <div class="form-group">
                         <label>Name:</label>
@@ -67,55 +70,63 @@
                     </div>
                 </div>
 
-                <div class="form-group">
-                    <label>Gender:</label>
-                    <select th:field="*{gender}">
-                        <option value="Male">Male</option>
-                        <option value="Female">Female</option>
-                        <option value="Other">Other</option>
-                    </select>
+                <div class="form-row">
+                    <div class="form-group">
+                        <label>Gender:</label>
+                        <select th:field="*{gender}">
+                            <option value="Male">Male</option>
+                            <option value="Female">Female</option>
+                            <option value="Other">Other</option>
+                        </select>
+                    </div>
                 </div>
 
-                <button type="submit" style="margin-top: 10px;">Update All Details</button>
+                <button type="submit" style="...">Update All Details</button>
             </form>
         </div>
     </div>
 </main>
-<script th:if="${successMessage}">
-    Swal.fire({
-        html: `
-            <div class="circle-tick">✓</div>
-            <div style="color: #333; font-weight: 700; font-size: 1.2rem; margin-bottom: 5px;">Updated!</div>
-            <div style="color: #666; font-size: 0.85rem;">Details updated successfully.</div>
-        `,
-        confirmButtonText: 'Back to Dashboard',
-        customClass: { popup: 'my-custom-popup' },
-        buttonsStyling: true
-    }).then((result) => {
-        window.location.href = '/user/dashboard';
+
+<script>
+    document.getElementById('updateForm').addEventListener('submit', function(event) {
+        event.preventDefault(); // नॉर्मल फॉर्म सबमिशन रोकें
+
+        Swal.fire({
+            title: 'Are you sure?',
+            text: "You want to update these details?",
+            icon: 'warning',
+            showCancelButton: true,
+            confirmButtonColor: '#3085d6',
+            cancelButtonColor: '#d33',
+            confirmButtonText: 'Yes, update it!',
+            customClass: { popup: 'my-custom-popup' },
+            buttonsStyling: true
+        }).then((result) => {
+            if (result.isConfirmed) {
+                // फॉर्म का डेटा लें
+                let formData = new FormData(event.target);
+                let actionUrl = event.target.action;
+
+                // AJAX के ज़रिए डेटा सबमिट करें
+                fetch(actionUrl, {
+                    method: 'POST',
+                    body: formData
+                }).then(response => {
+                    if (response.ok) {
+                        // सक्सेस होने पर डैशबोर्ड पर रीडायरेक्ट कर दें
+                        window.location.href = '/user/dashboard';
+                    } else {
+                        alert('Something went wrong!');
+                    }
+                }).catch(error => {
+                    console.error('Error:', error);
+                });
+            }
+        });
     });
 </script>
-
-<footer>
-    <div class="footer-content">
-        <div class="footer-section">
-            <h4>Hospital Appointment System</h4>
-            <p>Providing the best healthcare <br> appointment solutions for you.</p>
-        </div>
-        <div class="footer-section">
-            <h4>Quick Links</h4>
-            <a href="/">Home</a>
-            <a href="/user/my-appointments">My Bookings</a>
-            <a href="/user/update-patient">My Profile</a>
-        </div>
-        <div class="footer-section">
-            <h4>Contact Us</h4>
-            <p>📍 Sagar, Madhya Pradesh</p>
-            <p>📧 support@hospital.com</p>
-        </div>
-    </div>
-    <hr style="margin: 20px 0; border: 0; border-top: 1px solid #ddd;">
-    <p style="text-align: center;">&copy; 2026 Hospital Appointment System. All Rights Reserved.</p>
+<footer style="text-align: center; padding: 15px; background-color: #87ceeb; margin-top: 30px;">
+    <p style="margin: 0; color: #fff; font-weight: 500;">&copy; 2026 Smart Healthcare Appointment & Patient System. All Rights Reserved.</p>
 </footer>
 
 </body>

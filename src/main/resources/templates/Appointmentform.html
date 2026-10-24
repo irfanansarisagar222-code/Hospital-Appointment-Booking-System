@@ -8,7 +8,7 @@
     <link rel="stylesheet" type="text/css" th:href="@{/css/style.css}">
 
     <!-- SweetAlert2 JS -->
-    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+    <script src='https://cdn.jsdelivr.net/npm/sweetalert2@11'></script>
 
     <style>
         .form-wrapper {
@@ -24,7 +24,7 @@
             background: #ffffff;
             padding: 30px;
             border-radius: 16px;
-            box-shadow: 0 5px 20px rgba(0, 0, 0, 0.08);
+            box-shadow: 0 5px 20px rgba(0, 0, 0, 0.05);
             border: 1px solid #e0e0e0;
         }
 
@@ -44,7 +44,7 @@
             display: block;
             font-weight: 600;
             margin-bottom: 6px;
-            color: #333;
+            color: #555;
             font-size: 0.9rem;
         }
 
@@ -66,7 +66,7 @@
         .form-group textarea:focus {
             border-color: #0077b6;
             background-color: #fff;
-            box-shadow: 0 0 0 3px rgba(0, 119, 182, 0.15);
+            box-shadow: 0 0 3px rgba(0, 119, 182, 0.15);
         }
 
         .btn-submit {
@@ -105,14 +105,14 @@
             color: #0077b6 !important;
         }
 
-        /* --- प्रीमियम हॉस्पिटल पॉप-अप (Custom CSS) --- */
+        /* --- स्वीट अलर्ट पॉप-अप (Custom CSS) --- */
         .swal2-popup.my-custom-popup {
-            width: 280px !important;
+            width: 380px !important;
             border-radius: 20px !important;
             padding: 20px !important;
             font-family: 'Segoe UI', Roboto, sans-serif !important;
             box-shadow: 0 15px 30px rgba(0,0,0,0.1) !important;
-            background: #f0f4f8 !important;
+            background: #f4f4f5 !important;
             border: 3px solid #0077b6 !important;
         }
 
@@ -128,7 +128,7 @@
         }
 
         .swal2-styled.swal2-confirm {
-            background: linear-gradient(135deg, #0077b6, #00b4d8) !important;
+            background: linear-gradient(135deg, #0077b6, #00b4d5) !important;
             border-radius: 50px !important;
             padding: 8px 25px !important;
             font-size: 0.8rem !important;
@@ -141,7 +141,7 @@
         }
 
         .swal2-styled.swal2-confirm:hover {
-            background: linear-gradient(135deg, #005f93, #008eb5) !important;
+            background: linear-gradient(135deg, #005f95, #008eb5) !important;
             transform: translateY(-2px);
         }
 
@@ -168,19 +168,25 @@
 <body>
 
 <header>
-    <div class="navbar" style="display: flex; justify-content: space-between; align-items: center; padding: 12px 30px;">
-        <h1 style="color: white; font-size: 1.4rem; margin: 0;">Hospital Appointment System</h1>
+    <div class="navbar" style="background-color: #87ceeb; padding: 15px 30px; display: flex; justify-content: space-between; align-items: center;">
+        <h1 style="color: white; font-size: 1.5rem; margin: 0; font-weight: bold; display: flex; align-items: center;">
+    <span style="background-color: white; border-radius: 50%; width: 40px; height: 40px; display: inline-flex; align-items: center; justify-content: center; margin-right: 12px; flex-shrink: 0;">
+        <span style="color: #38bdf8; font-size: 28px; font-weight: bold; line-height: 1; margin-top: -2px;">+</span>
+    </span>
+            Smart Healthcare Appointment & Patient <System></System>
+        </h1>
         <nav class="nav-links">
             <a href="/user/dashboard" class="nav-back-btn">&larr; Back to Dashboard</a>
         </nav>
     </div>
 </header>
 
+
 <main class="form-wrapper">
     <div class="common-form">
         <h2>Book Appointment</h2>
 
-        <form th:action="@{/user/appointments/save}" method="POST">
+        <form id="appointmentForm" th:action="@{/user/appointments/save}" method="POST">
             <div class="form-group">
                 <label>Select Doctor:</label>
                 <select name="doctorId" required>
@@ -204,7 +210,7 @@
 
             <div class="form-group">
                 <label>Health Issues / Symptoms:</label>
-                <textarea name="symptoms" rows="3" placeholder="Apni takleef yahan likhein..." required></textarea>
+                <textarea name="symptoms" rows="5" placeholder="Apni takleef yahan likhein..." required></textarea>
             </div>
 
             <div class="form-group">
@@ -230,18 +236,19 @@
                 </select>
             </div>
 
-            <button type="submit" class="btn-submit">Confirm Booking</button>
+            <!-- Button type ko 'button' kiya hai taaki pehle pop-up trigger ho sake -->
+            <button type="button" id="confirmBookingBtn" class="btn-submit">Confirm Booking</button>
         </form>
     </div>
 </main>
 
-<footer>
-    <p>&copy; 2026 Hospital Appointment System. All Rights Reserved.</p>
+<footer style="text-align: center; padding: 15px; background-color: #87ceeb; margin-top: 30px;">
+    <p style="margin: 0; color: #fff; font-weight: 500;">&copy; 2026 Smart Healthcare Appointment & Patient System. All Rights Reserved.</p>
 </footer>
 
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
 
-<!-- Aapki Premium SweetAlert Script -->
+<!-- Success Message SweetAlert (Agar backend se success message aaye) -->
 <script th:if="${successMessage}">
     Swal.fire({
         html: `
@@ -253,9 +260,38 @@
         customClass: { popup: 'my-custom-popup' },
         buttonsStyling: true
     }).then((result) => {
-        window.location.href = '/user/dashboard';
+        if (result.isConfirmed) {
+            window.location.href = '/user/dashboard';
+        }
     });
 </script>
 
+<!-- Booking Confirmation Pop-up Script -->
+<script>
+    const confirmBookingBtn = document.getElementById('confirmBookingBtn');
+    const appointmentForm = document.getElementById('appointmentForm');
+
+    confirmBookingBtn.addEventListener('click', () => {
+        // Pehle check karein ki form ki saari fields properly bhari hui hain ya nahi
+        if (appointmentForm.checkValidity()) {
+            Swal.fire({
+                title: '<span style="color: #0077b6; font-size: 1.25rem; font-weight: 700;">Confirm Booking?</span>',
+                html: '<span style="color: #555;">Kya aap apni yeh appointment booking confirm karna chahte hain?</span>',
+                icon: 'question',
+                showCancelButton: true,
+                confirmButtonText: 'Yes, Confirm',
+                cancelButtonText: 'Cancel',
+                customClass: { popup: 'my-custom-popup' },
+                buttonsStyling: true
+            }).then((result) => {
+                if (result.isConfirmed) {
+                    appointmentForm.submit(); // Form backend par submit ho jayega
+                }
+            });
+        } else {
+            appointmentForm.reportValidity(); // Agar koi field khali hai toh browser validation error dikhayega
+        }
+    });
+</script>
 </body>
 </html>

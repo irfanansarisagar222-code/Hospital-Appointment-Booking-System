@@ -13,7 +13,24 @@
 <header>
     <div class="navbar">
         <div class="welcome-section">
-            <h1 style="margin: 0; font-size: 1.4rem; color: white;">Welcome, User!</h1>
+            <h1 style="color: white; font-size: 1.5rem; margin: 0; font-weight: bold; display: flex; align-items: center;">
+    <span style="background-color: white; border-radius: 50%; width: 40px; height: 40px; display: inline-flex; align-items: center; justify-content: center; margin-right: 12px; flex-shrink: 0;">
+        <span style="color: #38bdf8; font-size: 28px; font-weight: bold; line-height: 1; margin-top: -2px;">+</span>
+    </span>
+                Welcome User!<doctype html>
+                <html lang="en">
+                <head>
+                    <meta charset="UTF-8">
+                    <meta name="viewport"
+                          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+                    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+                    <title>Document</title>
+                </head>
+                <body>
+
+                </body>
+                </html>
+            </h1>
         </div>
         <nav class="nav-links">
             <a href="/user/book-appointment">Book Appointment</a>
@@ -27,22 +44,24 @@
 </header>
 
 <!-- Photo Section Fixed & Centered -->
-<div class="text-center my-3" style="display: flex; flex-direction: column; align-items: center; justify-content: center;">
-    <!-- 1. Pehle database wali photo check karega -->
-    <div th:if="${user != null && user.profilePhoto != null && user.profilePhoto != ''}">
+<div class="text-center my-3" style="text-align: center; margin-top: 20px;">
+
+    <!-- 1. Agar database mein user aur uski profile photo maujud hai -->
+    <div th:if="${user != null and user.profilePhoto != null and user.profilePhoto != ''}">
         <img th:src="@{'/uploads/' + ${user.profilePhoto}}"
-             style="width: 120px; height: 120px; border-radius: 50%; object-fit: cover; border: 3px solid #007bff; display: block; margin: 0 auto;"
-             alt="User Photo">
+             style="width: 120px; height: 120px; border-radius: 50%; object-fit: cover; border: 3px solid #007bff;"
+             alt="User Profile Photo"/>
     </div>
 
-    <!-- 2. Agar database mein koi photo nahi hai, tabhi default dikhaye -->
-    <div th:if="${user == null || user.profilePhoto == null || user.profilePhoto == ''}">
+    <!-- 2. Agar database mein photo nahi hai, tabhi default icon dikhaye -->
+    <div th:if="${user == null or user.profilePhoto == null or user.profilePhoto == ''}">
         <img src="https://cdn-icons-png.flaticon.com/512/3135/3135715.png"
-             style="width: 120px; height: 120px; border-radius: 50%; border: 3px solid #ccc; display: block; margin: 0 auto;"
+             style="width: 120px; height: 120px; border-radius: 50%; object-fit: cover; border: 3px solid #007bff;"
              alt="Default Photo">
     </div>
 
-    <button class="btn btn-outline-primary btn-sm mt-2" data-bs-toggle="modal" data-bs-target="#uploadModal" style="padding: 3px 12px; font-size: 0.85rem;">
+    <br>
+    <button class="btn btn-outline-primary btn-sm mt-2" data-bs-toggle="modal" data-bs-target="#uploadModal" style="margin-top: 10px;">
         Edit Photo
     </button>
 </div>
@@ -103,7 +122,7 @@
 <footer>
     <div class="footer-content">
         <div class="footer-section">
-            <h4>Hospital Appointment System</h4>
+            <h4>Smart Healthcare Appointment & Patient System</h4>
             <p>Providing the best healthcare <br> appointment solutions for you.</p>
         </div>
         <div class="footer-section">
@@ -119,7 +138,7 @@
         </div>
     </div>
     <hr style="margin: 20px 0; border: 0; border-top: 1px solid #ddd;">
-    <p style="text-align: center;">&copy; 2026 Hospital Appointment System. All Rights Reserved.</p>
+    <p style="text-align: center;">&copy; Smart Healthcare Appointment & Patient System. All Rights Reserved.</p>
 </footer>
 
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>

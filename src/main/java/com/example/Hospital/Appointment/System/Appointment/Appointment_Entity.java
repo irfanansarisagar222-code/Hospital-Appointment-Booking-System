@@ -3,6 +3,8 @@ package com.example.Hospital.Appointment.System.Appointment;
 import com.example.Hospital.Appointment.System.Doctor.Doctor_Entity;
 import com.example.Hospital.Appointment.System.Patient.Patient_Entity;
 import jakarta.persistence.*;
+
+import java.time.LocalDate;
 import java.time.LocalDateTime;
 import org.springframework.format.annotation.DateTimeFormat;
 @Entity
@@ -13,8 +15,8 @@ public class Appointment_Entity {
     private Long id;
 
     // ...
-    @DateTimeFormat(iso = DateTimeFormat.ISO.DATE_TIME)
-    private LocalDateTime appointmentDate;
+    @DateTimeFormat(pattern = "yyyy-MM-dd")
+    private LocalDate appointmentDate;
     private String status;
 
     @ManyToOne
@@ -39,8 +41,8 @@ public class Appointment_Entity {
     public Long getId() { return id; }
     public void setId(Long id) { this.id = id; }
 
-    public LocalDateTime getAppointmentDate() { return appointmentDate; }
-    public void setAppointmentDate(LocalDateTime appointmentDate) { this.appointmentDate = appointmentDate; }
+    public LocalDate getAppointmentDate() { return appointmentDate; }
+    public void setAppointmentDate(LocalDate appointmentDate) { this.appointmentDate = appointmentDate; }
 
     public String getSymptoms() {
         return symptoms;
