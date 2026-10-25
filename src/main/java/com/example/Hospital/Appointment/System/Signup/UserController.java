@@ -49,12 +49,15 @@ public class UserController {
 
     //Appointment Controller Code Merge
     @GetMapping("/book-appointment")
-    public String showBookingForm(Model model) {
-        // 1. Dropdown ke liye lists bhejo
-        model.addAttribute("doctors", doctor_repo.findAll());
-        model.addAttribute("patients", patient_repo.findAll());
+    public String showBookingForm(Model model, Principal principal) {
+        // 1. Current logged-in user ki email nikalein
+        String userEmail = principal.getName();
 
-        // 2. IMPORTANT: Ye object bhejna hi padega warna error aayegi
+        // 2. Dropdown ke liye doctors saare dikhenge, par patients sirf is user ke dikhenge
+        model.addAttribute("doctors", doctor_repo.findAll());
+        model.addAttribute("patients", patient_repo.findByEmail(userEmail));
+
+        // 3. Appointment object bhejna zaroori hai
         model.addAttribute("appointment", new Appointment_Entity());
 
         return "Appointmentform"; // Tumhari HTML file ka exact naam

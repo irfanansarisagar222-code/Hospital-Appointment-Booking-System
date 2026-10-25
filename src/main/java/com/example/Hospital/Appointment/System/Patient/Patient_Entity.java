@@ -1,9 +1,10 @@
 package com.example.Hospital.Appointment.System.Patient;
 
-import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Id;
+import jakarta.persistence.*;
+import jakarta.validation.constraints.Max;
+import jakarta.validation.constraints.Min;
+import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.Pattern;
 
 import java.time.LocalDate;
 
@@ -13,15 +14,32 @@ public class Patient_Entity {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     Long id;
 
-    String name;
-    int age;
-    String email;
-    String phoneNumber;
-    String gender;
-    // Naye Attributes
-    String bloodGroup;
-    String emergencyContact;
-    LocalDate registrationDate; // Patient kab join hua
+    @NotBlank(message = "Patient name is required")
+    @Column(nullable = false)
+    private String name;
+
+    @Min(value = 0, message = "Age must be valid")
+    @Max(value = 120, message = "Age must be less than 120")
+    private int age;
+
+    @NotBlank(message = "Email is required")
+    @Pattern(regexp = "^[A-Za-z0-9._%+-]+@gmail\\.com$", message = "Email must be a valid @gmail.com address")
+    @Column(nullable = false)
+    private String email;
+
+    @Pattern(regexp = "^[0-9]{10}$", message = "Phone number must be 10 digits")
+    private String phoneNumber;
+
+    @NotBlank(message = "Gender is required")
+    private String gender;
+
+    @NotBlank(message = "Blood group is required")
+    private String bloodGroup;
+
+    @NotBlank(message = "Emergency contact is required")
+    private String emergencyContact;
+
+    private LocalDate registrationDate; // Patient kab join hua
 
     // Constructor taaki date apne aap set ho jaye
     public Patient_Entity() {

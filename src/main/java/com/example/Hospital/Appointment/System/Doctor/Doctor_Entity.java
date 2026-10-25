@@ -1,6 +1,10 @@
 package com.example.Hospital.Appointment.System.Doctor;
 
 import jakarta.persistence.*;
+import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.NotNull;
+import jakarta.validation.constraints.Pattern;
+import jakarta.validation.constraints.Positive;
 
 @Entity
 public class Doctor_Entity {
@@ -8,13 +12,26 @@ public class Doctor_Entity {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     Long id;
 
+    @NotBlank(message = "Doctor name is required")
+    @Column(nullable = false)
     String name;
+    @NotBlank(message = "Specialization is required")
+    @Column(nullable = false)
     String specialization;
     String experience;
+    @NotBlank(message = "Phone number is required")
+    @Pattern(regexp = "^[0-9]{10}$", message = "Phone number must be 10 digits")
+    @Column(nullable = false)
     String phone;
+    @NotBlank(message = "Email is required")
+    @Pattern(regexp = "^[A-Za-z0-9._%+-]+@gmail\\.com$", message = "Email must be a valid @gmail.com address")
+    @Column(nullable = false, unique = true)
     String email;
     String chamberNumber;
+    @NotNull(message = "Consultation fee is required")
+    @Positive(message = "Fee must be positive")
     Double consultationFee;
+    @NotBlank(message = "Working hours are required")
     @Column(name = "working_hours")
     private String workingHours; // e.g., "10 AM - 2 PM"
 

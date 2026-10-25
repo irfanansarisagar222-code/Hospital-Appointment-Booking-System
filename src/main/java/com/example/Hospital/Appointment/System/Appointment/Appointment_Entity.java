@@ -6,6 +6,9 @@ import jakarta.persistence.*;
 
 import java.time.LocalDate;
 import java.time.LocalDateTime;
+
+import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.NotNull;
 import org.springframework.format.annotation.DateTimeFormat;
 @Entity
 public class Appointment_Entity {
@@ -14,22 +17,30 @@ public class Appointment_Entity {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    // ...
+    @NotNull(message = "Appointment date is required")
     @DateTimeFormat(pattern = "yyyy-MM-dd")
     private LocalDate appointmentDate;
+
+    @NotBlank(message = "Status is required")
     private String status;
 
+    @NotNull(message = "Doctor must be selected")
     @ManyToOne
     @JoinColumn(name = "doctor_id", nullable = false)
     private Doctor_Entity doctor;
 
+    @NotNull(message = "Patient must be selected")
     @ManyToOne
     @JoinColumn(name = "patient_id", nullable = false)
     private Patient_Entity patient;
 
+    @NotBlank(message = "Symptoms are required")
     private String symptoms;
 
+    @NotBlank(message = "Appointment time is required")
     private String appointmentTime;
+
+    @NotBlank(message = "Priority is required")
     private String priority;
 
 

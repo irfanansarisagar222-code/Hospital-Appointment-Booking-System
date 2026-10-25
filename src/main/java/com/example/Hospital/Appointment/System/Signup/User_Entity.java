@@ -1,6 +1,9 @@
 package com.example.Hospital.Appointment.System.Signup;
 
 import jakarta.persistence.*;
+import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.Pattern;
+import jakarta.validation.constraints.Size;
 
 import java.time.LocalDateTime;
 
@@ -9,8 +12,15 @@ public class User_Entity {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     Long id;
-    @Column(unique = true)
+    @NotBlank(message = "Email cannot be blank")
+    @Pattern(regexp = "^[A-Za-z0-9._%+-]+@gmail\\.com$", message = "Email must be a valid @gmail.com address")
+    @Column(unique = true, nullable = false)
     String email;
+    @NotBlank(message = "Password cannot be blank")
+    @Size(min = 8, message = "Password must be at least 8 characters long")
+    @Pattern(regexp = "^(?=.*[0-9])(?=.*[a-z])(?=.*[A-Z])(?=.*[@#$%^&+=!]).*$",
+            message = "Password must contain at least one uppercase letter, one lowercase letter, one digit, and one special character")
+    @Column(nullable = false)
     String password;
     String otp;
     private LocalDateTime otpCreatedAt;
